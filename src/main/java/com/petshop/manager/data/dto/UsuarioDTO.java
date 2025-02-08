@@ -8,8 +8,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class UsuarioDTO extends BaseEntityDTO {
     private String cpf;
     private String nome;

@@ -11,8 +11,6 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class PetDTO extends BaseEntityDTO {
     private ClienteDTO cliente;
     private RacaDTO raca;

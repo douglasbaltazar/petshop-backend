@@ -5,7 +5,9 @@ import com.petshop.manager.domain.model.Raca;
 import com.petshop.manager.domain.repositories.RacaRepository;
 import com.petshop.manager.domain.services.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RacaService extends BaseService<Raca, RacaDTO> {
     @Autowired
     private RacaRepository racaRepository;

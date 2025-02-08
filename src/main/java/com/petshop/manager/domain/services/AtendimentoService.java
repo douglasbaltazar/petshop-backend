@@ -5,7 +5,9 @@ import com.petshop.manager.domain.model.Atendimento;
 import com.petshop.manager.domain.repositories.AtendimentoRepository;
 import com.petshop.manager.domain.services.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AtendimentoService extends BaseService<Atendimento, AtendimentoDTO> {
     @Autowired
     private AtendimentoRepository atendimentoRepository;

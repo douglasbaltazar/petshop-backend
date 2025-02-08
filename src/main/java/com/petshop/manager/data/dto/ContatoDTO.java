@@ -8,8 +8,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class ContatoDTO extends BaseEntityDTO {
     private ClienteDTO cliente;
     private String tag;

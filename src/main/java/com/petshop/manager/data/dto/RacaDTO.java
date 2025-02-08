@@ -8,7 +8,5 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class RacaDTO extends BaseEntityDTO {
 }
