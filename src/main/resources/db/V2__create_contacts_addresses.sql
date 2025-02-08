@@ -1,0 +1,21 @@
+CREATE TABLE contato (
+    id SERIAL PRIMARY KEY,
+    identificador_cliente INT REFERENCES cliente(id) ON DELETE CASCADE,
+    tag VARCHAR(50),
+    tipo VARCHAR(20) CHECK (tipo IN ('email', 'telefone')) NOT NULL,
+    valor VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE endereco (
+    id SERIAL PRIMARY KEY,
+    identificador_cliente INT REFERENCES cliente(id) ON DELETE CASCADE,
+    logradouro VARCHAR(255),
+    cidade VARCHAR(100),
+    bairro VARCHAR(100),
+    complemento VARCHAR(255),
+    tag VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
