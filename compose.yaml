@@ -1,10 +1,44 @@
+version: '3.8'
+
 services:
   mysql:
     image: 'mysql:latest'
+    container_name: mysql_db
+    restart: always
     environment:
       - 'MYSQL_DATABASE=petshop'
-      - 'MYSQL_PASSWORD=root'
       - 'MYSQL_ROOT_PASSWORD=root'
-      - 'MYSQL_USER=root'
+      - 'MYSQL_USER=petshop'
+      - 'MYSQL_PASSWORD=petshop'
     ports:
-      - '3306'
+      - '3306:3306'
+    networks:
+      - petshop-network
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+
+  app:
+    build: .
+    container_name: petshop_app
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      - 'SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/petshop'
+      - 'SPRING_DATASOURCE_USERNAME=petshop'
+      - 'SPRING_DATASOURCE_PASSWORD=petshop'
+    ports:
+      - '8080:8080'
+    networks:
+      - petshop-network
+
+networks:
+  petshop-network:
+
+volumes:
+  mysql_data:

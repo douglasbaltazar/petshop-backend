@@ -1,6 +1,6 @@
 CREATE TABLE tb_atendimentos (
     id SERIAL PRIMARY KEY,
-    pet_id INT REFERENCES tb_pets(id) ON DELETE CASCADE,
+    pet_id BIGINT UNSIGNED REFERENCES tb_pets(id) ON DELETE CASCADE,
     descricao TEXT NOT NULL,
     valor DECIMAL(10,2) NOT NULL,
     data TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

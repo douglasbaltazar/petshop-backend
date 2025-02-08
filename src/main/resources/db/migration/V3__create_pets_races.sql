@@ -7,8 +7,8 @@ CREATE TABLE tb_racas (
 
 CREATE TABLE tb_pets (
     id SERIAL PRIMARY KEY,
-    id_cliente INT REFERENCES tb_clientes(id) ON DELETE CASCADE,
-    id_raca INT REFERENCES tb_racas(id) ON DELETE SET NULL,
+    id_cliente BIGINT UNSIGNED REFERENCES tb_clientes(id) ON DELETE CASCADE,
+    id_raca BIGINT UNSIGNED REFERENCES tb_racas(id) ON DELETE SET NULL,
     nome VARCHAR(100) NOT NULL,
     data_nascimento DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

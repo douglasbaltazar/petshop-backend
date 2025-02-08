@@ -1,6 +1,6 @@
 CREATE TABLE tb_contatos (
     id SERIAL PRIMARY KEY,
-    id_cliente INT REFERENCES tb_clientes(id) ON DELETE CASCADE,
+    id_cliente BIGINT UNSIGNED REFERENCES tb_clientes(id) ON DELETE CASCADE,
     tag VARCHAR(50),
     tipo VARCHAR(20) CHECK (tipo IN ('email', 'telefone')) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -9,7 +9,7 @@ CREATE TABLE tb_contatos (
 
 CREATE TABLE tb_enderecos (
     id SERIAL PRIMARY KEY,
-    id_cliente INT REFERENCES tb_clientes(id) ON DELETE CASCADE,
+    id_cliente BIGINT UNSIGNED  REFERENCES tb_clientes(id) ON DELETE CASCADE,
     logradouro VARCHAR(255),
     cidade VARCHAR(100),
     bairro VARCHAR(100),
