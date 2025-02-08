@@ -1,0 +1,53 @@
+package com.petshop.manager.api.controllers;
+
+import com.petshop.manager.api.security.TokenService;
+import com.petshop.manager.data.dto.auth.LoginRequestDTO;
+import com.petshop.manager.data.dto.auth.RegisterRequestDTO;
+import com.petshop.manager.data.dto.auth.ResponseAuthDTO;
+import com.petshop.manager.domain.model.Usuario;
+import com.petshop.manager.domain.repositories.UsuarioRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/auth")
+@RequiredArgsConstructor
+public class AuthController {
+    private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final TokenService tokenService;
+
+    @PostMapping("/login")
+    public ResponseEntity login(@RequestBody LoginRequestDTO body){
+        Usuario user = this.usuarioRepository.findByCpf(body.cpf()).orElseThrow(() -> new RuntimeException("User not found"));
+        if(passwordEncoder.matches(body.password(), user.getSenha())) {
+            String token = this.tokenService.generateToken(user);
+            return ResponseEntity.ok(new ResponseAuthDTO(user.getNome(), token, user.getPerfil()));
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity register(@RequestBody RegisterRequestDTO body){
+        Optional<Usuario> user = this.usuarioRepository.findByCpf(body.cpf());
+
+        if(user.isEmpty()) {
+            Usuario newUser = new Usuario();
+            newUser.setSenha(passwordEncoder.encode(body.password()));
+            newUser.setCpf(body.cpf());
+            newUser.setPerfil(body.perfil());
+            this.usuarioRepository.save(newUser);
+
+            String token = this.tokenService.generateToken(newUser);
+            return ResponseEntity.ok(new ResponseAuthDTO(newUser.getNome(), token, newUser.getPerfil()));
+        }
+        return ResponseEntity.badRequest().build();
+    }
+}
