@@ -1,4 +1,4 @@
-package com.petshop.manager.config;
+package com.petshop.manager.api.config;
 
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;

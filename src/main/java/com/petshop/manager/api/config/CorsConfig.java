@@ -1,4 +1,4 @@
-package com.petshop.manager.config;
+package com.petshop.manager.api.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,11 +1,9 @@
-package com.petshop.manager.model;
+package com.petshop.manager.domain.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_racas")

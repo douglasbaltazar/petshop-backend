@@ -1,4 +1,4 @@
-package com.petshop.manager.model;
+package com.petshop.manager.data.dto.base;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,17 +8,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@MappedSuperclass
-public class BaseEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class BaseEntityDTO {
     private Long id;
-
-    @Column(name = "created_at")
     private LocalDateTime dataCadastro;
-
-    @Column(name = "updated_at")
     private LocalDateTime dataAlteracao;
-
 }

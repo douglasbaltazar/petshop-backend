@@ -1,4 +1,4 @@
-package com.petshop.manager.model;
+package com.petshop.manager.domain.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
