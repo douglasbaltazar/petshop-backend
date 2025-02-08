@@ -1,16 +1,15 @@
-CREATE TABLE contato (
+CREATE TABLE tb_contatos (
     id SERIAL PRIMARY KEY,
-    identificador_cliente INT REFERENCES cliente(id) ON DELETE CASCADE,
+    id_cliente INT REFERENCES tb_clientes(id) ON DELETE CASCADE,
     tag VARCHAR(50),
     tipo VARCHAR(20) CHECK (tipo IN ('email', 'telefone')) NOT NULL,
-    valor VARCHAR(100) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE endereco (
+CREATE TABLE tb_enderecos (
     id SERIAL PRIMARY KEY,
-    identificador_cliente INT REFERENCES cliente(id) ON DELETE CASCADE,
+    id_cliente INT REFERENCES tb_clientes(id) ON DELETE CASCADE,
     logradouro VARCHAR(255),
     cidade VARCHAR(100),
     bairro VARCHAR(100),

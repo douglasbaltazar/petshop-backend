@@ -1,14 +1,14 @@
-CREATE TABLE raca (
+CREATE TABLE tb_racas (
     id SERIAL PRIMARY KEY,
     descricao VARCHAR(100) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE pets (
+CREATE TABLE tb_pets (
     id SERIAL PRIMARY KEY,
-    identificador_cliente INT REFERENCES cliente(id) ON DELETE CASCADE,
-    identificador_raca INT REFERENCES raca(id) ON DELETE SET NULL,
+    id_cliente INT REFERENCES tb_clientes(id) ON DELETE CASCADE,
+    id_raca INT REFERENCES tb_racas(id) ON DELETE SET NULL,
     nome VARCHAR(100) NOT NULL,
     data_nascimento DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
