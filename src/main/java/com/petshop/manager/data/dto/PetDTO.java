@@ -15,5 +15,5 @@ public class PetDTO extends BaseEntityDTO {
     private ClienteDTO cliente;
     private RacaDTO raca;
     private String nome;
-    private LocalDate data_nascimento;
+    private LocalDate dataNascimento;
 }

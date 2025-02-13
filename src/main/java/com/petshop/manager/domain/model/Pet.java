@@ -18,5 +18,6 @@ public class Pet extends BaseEntity {
     @JoinColumn(name = "id_raca", nullable = false)
     private Raca raca;
     private String nome;
-    private LocalDate data_nascimento;
+    @Column(name = "data_nascimento")
+    private LocalDate dataNascimento;
 }

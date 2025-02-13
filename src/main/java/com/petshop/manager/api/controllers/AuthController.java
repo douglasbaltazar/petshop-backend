@@ -1,12 +1,17 @@
 package com.petshop.manager.api.controllers;
 
 import com.petshop.manager.api.security.TokenService;
+import com.petshop.manager.data.dto.ClienteDTO;
+import com.petshop.manager.data.dto.UsuarioDTO;
 import com.petshop.manager.data.dto.auth.LoginRequestDTO;
 import com.petshop.manager.data.dto.auth.RegisterRequestDTO;
 import com.petshop.manager.data.dto.auth.ResponseAuthDTO;
 import com.petshop.manager.domain.model.Usuario;
 import com.petshop.manager.domain.repositories.UsuarioRepository;
+import com.petshop.manager.domain.services.ClienteService;
+import com.petshop.manager.domain.utils.MapperUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +28,14 @@ public class AuthController {
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
+
+    @Autowired
+    private MapperUtil mapper;
+
+    @Autowired
+    private ClienteService clienteService;
+
+
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequestDTO body){
@@ -42,8 +55,14 @@ public class AuthController {
             Usuario newUser = new Usuario();
             newUser.setSenha(passwordEncoder.encode(body.password()));
             newUser.setCpf(body.cpf());
+            newUser.setNome(body.nome());
             newUser.setPerfil(body.perfil());
-            this.usuarioRepository.save(newUser);
+
+            newUser = this.usuarioRepository.save(newUser);
+
+            ClienteDTO clienteDTO = new ClienteDTO();
+            clienteDTO.setUsuario(mapper.map(newUser, UsuarioDTO.class));
+            clienteService.gravar(clienteDTO);
 
             String token = this.tokenService.generateToken(newUser);
             return ResponseEntity.ok(new ResponseAuthDTO(newUser.getNome(), token, newUser.getPerfil()));

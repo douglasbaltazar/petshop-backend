@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,6 +41,8 @@ public class BaseService<T extends BaseEntity, D extends BaseEntityDTO> {
 
     public D gravar(D d) {
         T t = mapper.map(d, entityClass);
+        t.setDataAlteracao(LocalDateTime.now());
+        t.setDataCadastro(LocalDateTime.now());
         return new MapperUtil().map(repository.save(t), dtoClass);
     }
 
@@ -61,6 +64,7 @@ public class BaseService<T extends BaseEntity, D extends BaseEntityDTO> {
                 .orElseThrow(this::notFound);
         T t = mapper.map(dto, entityClass);
         BeanUtils.copyProperties(t, saved);
+        saved.setDataAlteracao(LocalDateTime.now());
         return mapper.map(repository.save(saved), dtoClass);
     }
 

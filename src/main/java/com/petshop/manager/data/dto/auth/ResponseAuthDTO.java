@@ -1,4 +1,4 @@
 package com.petshop.manager.data.dto.auth;
 
-public record ResponseAuthDTO(String name, String token, String perfil) {
+public record ResponseAuthDTO(String nome, String token, String perfil) {
 }
