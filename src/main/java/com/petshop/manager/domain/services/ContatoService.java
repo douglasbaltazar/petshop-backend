@@ -1,5 +1,6 @@
 package com.petshop.manager.domain.services;
 
+import com.petshop.manager.data.dto.ClienteDTO;
 import com.petshop.manager.data.dto.ContatoDTO;
 import com.petshop.manager.domain.model.Contato;
 import com.petshop.manager.domain.repositories.ContatoRepository;
@@ -13,8 +14,17 @@ public class ContatoService extends BaseService<Contato, ContatoDTO> {
     private ContatoRepository contatoRepository;
 
     @Autowired
+    private ClienteService clienteService;
+
+    @Autowired
     public ContatoService(ContatoRepository repository) {
         super(repository, ContatoDTO.class, Contato.class);
         this.contatoRepository = repository;
+    }
+
+    public ContatoDTO gravar(ContatoDTO contatoDTO, Long idCliente) {
+        ClienteDTO clienteDTO = clienteService.getDto(idCliente);
+        contatoDTO.setCliente(clienteDTO);
+        return super.gravar(contatoDTO);
     }
 }

@@ -5,8 +5,8 @@ import com.petshop.manager.data.dto.EnderecoDTO;
 import com.petshop.manager.domain.services.EnderecoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/enderecos")
@@ -19,5 +19,10 @@ public class EnderecoController extends BaseController<EnderecoDTO> {
     protected EnderecoController(EnderecoService service) {
         super(service);
         this.enderecoService = service;
+    }
+
+    @PostMapping(path = "/{id}")
+    public ResponseEntity<EnderecoDTO> gravar(@RequestBody EnderecoDTO dto, @PathVariable("id") Long idCliente) {
+        return ResponseEntity.ok(this.enderecoService.gravar(dto, idCliente));
     }
 }

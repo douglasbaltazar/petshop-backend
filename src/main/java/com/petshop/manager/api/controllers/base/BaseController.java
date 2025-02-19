@@ -47,11 +47,11 @@ public abstract class BaseController<D extends BaseEntityDTO>  {
         return service.paginado(pageable);
     }
 
-    @PutMapping()
+    @PutMapping(path = "/{id}")
     @Operation(summary = "Atualizar um registro", description = "Atualiza um registro na base.")
     @ApiResponse(responseCode = "201", description = "Atualizado com sucesso")
     @ApiResponse(responseCode = "400", description = "Dados inválidos", content = @Content(schema = @Schema(hidden = true)))
-    public ResponseEntity<D> atualizar(@Validated @RequestBody D dto) {
+    public ResponseEntity<D> atualizar(@PathVariable("id") Long id,@Validated @RequestBody D dto) {
         return ResponseEntity.ok(service.atualizar(dto));
     }
 
