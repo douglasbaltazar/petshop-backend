@@ -2,6 +2,7 @@ package com.petshop.manager.api.controllers.base;
 
 import com.petshop.manager.data.dto.base.BaseEntityDTO;
 import com.petshop.manager.data.dto.base.ResponseDTO;
+import com.petshop.manager.domain.model.Usuario;
 import com.petshop.manager.domain.services.base.BaseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -10,6 +11,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,8 +31,12 @@ public abstract class BaseController<D extends BaseEntityDTO>  {
     @GetMapping
     @Operation(summary = "Listar todos", description = "Retorna uma lista.")
     @ApiResponse(responseCode = "200", description = "Lista retornada com sucesso")
+    @ApiResponse(responseCode = "403", description = "Alguma coisa deu errado")
     public ResponseEntity<List<D>> listar() {
-        return ResponseEntity.ok(service.listar());
+        Usuario user = (Usuario) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+        List<D> lista = service.listar();
+        return ResponseEntity.ok(lista);
     }
 
     @PostMapping()
@@ -38,13 +45,6 @@ public abstract class BaseController<D extends BaseEntityDTO>  {
     @ApiResponse(responseCode = "400", description = "Dados inválidos", content = @Content(schema = @Schema(hidden = true)))
     public ResponseEntity<D> gravar(@Validated @RequestBody D dto) {
         return ResponseEntity.ok(service.gravar(dto));
-    }
-
-    @GetMapping(path = "paginado")
-    @Operation(summary = "Listar paginado", description = "Retorna uma lista paginada.")
-    @ApiResponse(responseCode = "200", description = "Lista paginada retornada com sucesso")
-    public Page<? extends BaseEntityDTO> paginado(Pageable pageable) {
-        return service.paginado(pageable);
     }
 
     @PutMapping(path = "/{id}")

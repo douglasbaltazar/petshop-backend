@@ -24,6 +24,7 @@ public class TokenService {
             return JWT.create()
                     .withIssuer("petshop")
                     .withSubject(user.getCpf())
+                    .withClaim("perfil", user.getPerfil())
                     .withExpiresAt(this.generateExpirationDate())
                     .sign(algorithm);
         } catch (JWTCreationException exception){
