@@ -37,6 +37,19 @@ services:
     networks:
       - petshop-network
 
+  frontend:
+    build:
+      context: "https://github.com/douglasbaltazar/petshop-frontend.git"
+    container_name: petshop_frontend
+    depends_on:
+      app:
+        condition: service_started
+    ports:
+      - '4200:80'
+    networks:
+      - petshop-network
+
+
 networks:
   petshop-network:
 
