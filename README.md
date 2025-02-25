@@ -18,3 +18,5 @@
     - O front-end está usando a porta 4200, enquanto o back-end está usando a porta 8080. 
     - http://localhost:4200
     - http://localhost:8080
+
+    - O Swagger está rodando no http://localhost:8080/swagger, precisando fazer a autentificação.
