@@ -12,4 +12,9 @@
 ### Swagger
     http://localhost:8080/swagger
 
+### Instruções
+    - Após rodar o sistema, o sistema automaticamente criará um usuario com cpf e senha 123. Sendo assim possivel acessar o sistema, criar novos usuarios, atendimentos, pets, raças, endereços e contatos.
 
+    - O front-end está usando a porta 4200, enquanto o back-end está usando a porta 8080. 
+    - http://localhost:4200
+    - http://localhost:8080
